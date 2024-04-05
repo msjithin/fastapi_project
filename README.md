@@ -1,5 +1,6 @@
 # FastAPI project
 
+This is my first FastAPI app. This will be a place to try out ideas and experiment.
 To run the app execute 
 ```bash
 uvicorn main:app --reload
