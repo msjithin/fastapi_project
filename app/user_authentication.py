@@ -6,6 +6,7 @@ from passlib.context import CryptContext
 from models import UserInDB, TokenData
 from database import fake_db 
 
+# randomly generated secret key
 SECRET_KEY = "715ff46c45193e08aad9622d69ec45d46f95921b3151c473398c345427d50e48"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPORE_MINUTES = 30
