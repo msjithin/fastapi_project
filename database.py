@@ -1,28 +1,13 @@
-from typing import List 
-from models import Item, User, uuid4, Gender, Role
-    
-items = []
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-db: List[User] = [
-    User(
-         first_name = "James", 
-         last_name = "Roger", 
-         gender = Gender.female,
-         roles = [Role.student]),
-    User(
-         first_name = "Alex", 
-         last_name = "Jones", 
-         gender = Gender.male,
-         roles = [Role.admin, Role.user])
-]
+SQLALCHEMY_DATABASE_URL = "sqlite:///./app_dev.db"
+# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-fake_db = {
-    "tim": {
-        "username": "tim",
-        "full_name": "Tim Rogers",
-        "email": "timrogers@gmail.com",
-        "hashed_password": "$2b$12$VNuiMp84WzhhvIuOtPT9XeT86SGX61PFwzryEVdG1Kz/fkAxRXtMW",
-        "disabled": False
-    }
-}
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+Base = declarative_base()
