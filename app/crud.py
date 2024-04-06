@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt 
 from passlib.context import CryptContext
 
-import models
-import schemas
+from . import models
+from . import schemas
 
 SECRET_KEY = "715ff46c45193e08aad9622d69ec45d46f95921b3151c473398c345427d50e48"
 ALGORITHM = "HS256"

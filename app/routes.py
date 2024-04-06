@@ -1,12 +1,12 @@
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
-import crud, models, schemas
-from database import SessionLocal, engine
+from . import crud, models, schemas
+from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
-from main import app
+from .main import app
 
 # Dependency
 def get_db():
@@ -15,6 +15,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@app.get("/")
+def index():
+    return {"message": "App in running!"}
 
 
 @app.post("/users/", response_model=schemas.User)
