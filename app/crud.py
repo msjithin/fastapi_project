@@ -8,10 +8,6 @@ from passlib.context import CryptContext
 from . import models
 from . import schemas
 
-SECRET_KEY = "715ff46c45193e08aad9622d69ec45d46f95921b3151c473398c345427d50e48"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPORE_MINUTES = 30
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth_2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
