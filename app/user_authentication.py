@@ -4,7 +4,9 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt 
 from passlib.context import CryptContext
 from models import UserInDB, TokenData
-from database import fake_db 
+from sqlalchemy.orm import Session
+
+from . import models
 
 # randomly generated secret key
 SECRET_KEY = "715ff46c45193e08aad9622d69ec45d46f95921b3151c473398c345427d50e48"
@@ -23,14 +25,12 @@ def get_password(password):
     return pwd_context.hash(password)
 
 
-def get_user(db, username: str):
-    if username in db:
-        user_data = db[username]
-        return UserInDB(**user_data)
+def get_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
 
 
-def authenticate_user(db, username: str, password: str):
-    user = get_user(db, username)
+def authenticate_user(db: Session, user_id: str, password: str):
+    user = get_user(db, user_id)
     if not user:
         return False 
     if not verify_password(password, user.hashed_password):
@@ -50,7 +50,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-async def get_current_user(token: str = Depends(oauth_2_scheme)):
+async def get_current_user(db: Session, token: str = Depends(oauth_2_scheme)):
     credential_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                          detail="Could not validate credentials",
                                          headers={"www-authenticate": "Bearer"})
@@ -64,7 +64,7 @@ async def get_current_user(token: str = Depends(oauth_2_scheme)):
     except JWTError:
         raise credential_exception
     
-    user = get_user(fake_db, username=token_data.username)
+    user = get_user(db, username=token_data.username)
     if user is None:
         raise credential_exception
     
