@@ -2,7 +2,7 @@
 
 This is my first FastAPI app. This will be a place to try out ideas and experiment. This app is in a docker container. The docker image creation and running scripts are in `run_docker.sh`.
 
-The app hold data in a sqlite database. Currently there are 2 tables `Users` and `Items`. There are ont-to-many relationship between User-Items. This api is used to create, read, update, and delete users and items.   
+The app hold data in a sqlite database. Currently there are 2 tables `Users` and `Items`. There are one-to-many relationship between Users-Items. This api is used to create, read, update, and delete users and items.   
 
 To run the app execute locally.
 ```bash
