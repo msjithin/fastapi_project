@@ -1,1 +1,3 @@
-curl -X GET http://127.0.0.1:8000/api/v1/users
+curl -X 'GET' \
+  'http://localhost:8080/users/?skip=0&limit=100' \
+  -H 'accept: application/json'

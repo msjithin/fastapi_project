@@ -1,2 +1,2 @@
-docker build -t myfastapiapp . 
-docker run -p 8000:8000 myfastapiapp
+docker build -t myapi .
+docker run -d -p 8080:80 myapi

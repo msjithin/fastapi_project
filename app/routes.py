@@ -19,7 +19,7 @@ def get_db():
 
 @app.get("/")
 def index():
-    return {"message": "App in running!"}
+    return {"message": "Server in running!"}
 
 
 @app.post("/users/", response_model=schemas.User)
