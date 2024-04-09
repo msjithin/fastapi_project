@@ -9,7 +9,12 @@ from sqlalchemy.orm import Session
 from . import models
 
 # randomly generated secret key
-SECRET_KEY = "715ff46c45193e08aad9622d69ec45d46f95921b3151c473398c345427d50e48"
+def read_secret_key():
+    with open('/app/secret_key.txt', 'r') as f:
+        secret_key = f.read().strip()
+    return secret_key
+
+SECRET_KEY = read_secret_key()
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPORE_MINUTES = 30
 
